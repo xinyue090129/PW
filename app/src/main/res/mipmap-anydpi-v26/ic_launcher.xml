@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  应用图标（自适应图标）。
+  minSdk 26 起系统全部支持自适应图标，因此这里只提供 anydpi-v26 一份 XML 即可，
+  不必再为 mdpi/hdpi/... 各准备一套位图，APK 体积也更小。
+  前景画的是一个终端提示符："❯ _"
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 图标背景色（自适应图标用） -->
+    <color name="ic_launcher_background">#FF10161A</color>
+
+    <!--
+      窗口背景色。
+      界面由 Compose 绘制，这个值只影响"冷启动第一帧"的底色，
+      取深色可以避免深色/AMOLED 主题下先闪一下白屏。
+    -->
+    <color name="window_background">#FF121212</color>
+</resources>

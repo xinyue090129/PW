@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Activity 主题。
+      界面完全由 Compose 绘制，这里只需要：
+        ① 去掉 ActionBar（标题栏由 Compose 的 TopAppBar 负责）
+        ② 窗口背景设为深色，避免冷启动闪白
+        ③ 状态栏/导航栏透明，配合 enableEdgeToEdge() 让内容延伸到系统栏下方
+      父主题用系统自带的 android:Theme.Material.NoActionBar，
+      避免为了一个主题去引入 com.google.android.material 依赖。
+    -->
+    <style name="Theme.ShellConsole" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

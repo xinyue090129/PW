@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ================= 存储权限 =================
+      READ_EXTERNAL_STORAGE : Android 6 ~ 12 的普通存储读取；Android 13 起由媒体权限取代，
+                              这里用 maxSdkVersion="32" 声明，避免在新系统上做无效申请。
+      WRITE_EXTERNAL_STORAGE: Android 4.4 ~ 9 使用；Android 10 起被分区存储取代，故限制到 29。
+      MANAGE_EXTERNAL_STORAGE「所有文件访问」: Android 11(API 30)+ 生效。
+          注意它是特殊权限，requestPermissions 弹窗无效，必须跳系统设置页由用户手动打开开关
+          （见 ShellConsoleScreen 里「去授权」按钮的分支逻辑）。
+      另：targetSdk 35 下不再声明 requestLegacyExternalStorage（该属性只在 targetSdk ≤ 29 生效）。
+    -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <!--
+      包可见性声明（Android 11 / API 30 起生效）：
+      不声明的话，PackageManager.queryIntentActivities 只能看到系统自带应用，
+      查不到 MT管理器、ES文件浏览器 等第三方文件管理器，
+      自建的「选择文件管理器」列表就会只剩系统「文件」一个。
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.GET_CONTENT" />
+            <data android:mimeType="*/*" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.OPEN_DOCUMENT" />
+            <data android:mimeType="*/*" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ShellConsole">
+
+        <!--
+          windowSoftInputMode="adjustResize"：
+          在 API 30 以下（Android 11 之前），Compose 的 Modifier.imePadding() 依赖
+          Compat 层对窗口 resize 的监听来推算键盘高度，所以这个声明是必需的；
+          API 30+ 由 edge-to-edge 的 insets 机制直接上报，二者不会叠加。
+          不加 stateHidden，是为了让用户点输入框时立刻弹键盘。
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
